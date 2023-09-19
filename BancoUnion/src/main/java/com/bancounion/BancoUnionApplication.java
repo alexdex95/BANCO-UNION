@@ -9,5 +9,4 @@ public class BancoUnionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BancoUnionApplication.class, args);
 	}
-
 }

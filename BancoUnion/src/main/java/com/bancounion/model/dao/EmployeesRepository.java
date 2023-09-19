@@ -1,4 +1,4 @@
-package com.bancounion.repository;
+package com.bancounion.model.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

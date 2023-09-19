@@ -14,7 +14,7 @@ public class Employees {
 	@Id
 	@Column(name = "id", nullable = false)
 	private int id;
-	
+
 	@Column(name = "name", nullable = false)
 	private String name;
 

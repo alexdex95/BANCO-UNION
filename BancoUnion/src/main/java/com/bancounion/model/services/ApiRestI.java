@@ -1,16 +1,13 @@
-package com.bancounion.services;
-
-import java.util.Optional;
+package com.bancounion.model.services;
 
 import com.bancounion.model.EmployeesRequest;
 import com.bancounion.model.entity.Employees;
 
 /**
- * @author Jefferson Alexander Moreno Barrera
- *         {@code public interface ApiRestI}
+ * @author Jefferson Alexander Moreno Barrera {@code public interface ApiRestI}
  */
 public interface ApiRestI {
-	Optional<Iterable<Employees>> get();
+	Iterable<Employees> get();
 
 	Employees put(EmployeesRequest body);
 
