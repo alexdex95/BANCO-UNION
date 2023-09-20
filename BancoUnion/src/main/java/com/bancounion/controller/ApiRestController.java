@@ -1,5 +1,7 @@
 package com.bancounion.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,32 +43,32 @@ public class ApiRestController {
 	}
 
 	@PutMapping("put")
-	public ResponseEntity<Employees> put(@RequestBody EmployeesRequest body) {
+	public ResponseEntity<Employees> put(@Valid @RequestBody EmployeesRequest body) {
 		if (logger.isDebugEnabled()) {
 			logger.info("inicio servicio put con body {}", gson.toJson(body));
 		}
 		if (body == null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NO EXISTEN DATOS DE ENTRADA");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "no existen datos de entrada");
 		}
 		return new ResponseEntity<>(apiRestImplement.put(body), HttpStatus.OK);
 	}
 
 	@PostMapping("post")
-	public ResponseEntity<Employees> post(@RequestBody EmployeesRequest body) {
+	public ResponseEntity<Employees> post(@Valid @RequestBody EmployeesRequest body) {
 		if (logger.isDebugEnabled()) {
 			logger.info("inicio servicio post con body {}", gson.toJson(body));
 		}
 		if (body == null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "DATOS DE ENTRADA REQUERIDOS");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "datos de entrada requeridos");
 		}
 		return new ResponseEntity<>(apiRestImplement.post(body), HttpStatus.OK);
 	}
 
 	@DeleteMapping("delete")
-	public ResponseEntity<String> delete(@RequestBody EmployeesRequest body) {
+	public ResponseEntity<String> delete(@Valid @RequestBody EmployeesRequest body) {
 		logger.info("inicio servicio delete se eliminara el registro {}", body.getId());
 		if (body.getId() == 0) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID REQUERIDO");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id requerido");
 		}
 		return new ResponseEntity<>(apiRestImplement.delete(body), HttpStatus.OK);
 	}

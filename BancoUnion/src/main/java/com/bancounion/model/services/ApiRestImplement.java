@@ -36,13 +36,13 @@ public class ApiRestImplement implements ApiRestI {
 	 */
 	public Iterable<Employees> get() {
 		try {
-			Iterable<Employees> employeesArrays=employeesRepository.findAll();
+			Iterable<Employees> employeesArrays = employeesRepository.findAll();
 			if (logger.isDebugEnabled()) {
 				logger.info("Registro encontrado {}", gson.toJson(employeesArrays));
 			}
 			return employeesArrays;
 		} catch (Exception e) {
-			logger.error("Error buscando informacion por causa {}",e.getMessage());
+			logger.error("Error buscando informacion por causa {}", e.getMessage());
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ERROR);
 		}
 	}
@@ -55,25 +55,19 @@ public class ApiRestImplement implements ApiRestI {
 	 */
 	public Employees put(@RequestBody EmployeesRequest body) {
 		Employees employeesEntity = new Employees();
-		try {
-			Optional<Employees> employees = employeesRepository.findById(Integer.toString(body.getId()));
-			if (!employees.isPresent()) {
-				employeesEntity.setId(body.getId());
-				employeesEntity.setName(body.getName());
-				if (logger.isDebugEnabled()) {
-					logger.info("Registro actualizado {}",  gson.toJson(employeesEntity));
-				}
-				return employeesRepository.save(employeesEntity);
-			} else {
-				logger.error("datos no encontrados con id {}",body.getId());
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-						"NO EXISTE INFORMACION EN BASE DE DATOS PARA EL ID:" + body.getId());
+		Optional<Employees> employees = employeesRepository.findById(body.getId());
+		if (employees.isPresent()) {
+			employeesEntity.setId(body.getId());
+			employeesEntity.setName(body.getName());
+			if (!logger.isDebugEnabled()) {
+				logger.info("Registro actualizado {}", gson.toJson(employeesEntity));
 			}
-		} catch (Exception e) {
-			logger.error("Error actualizando informacion {}",e.getMessage());
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ERROR);
+			return employeesRepository.save(employeesEntity);
+		} else {
+			logger.error("datos no encontrados con id {}", body.getId());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"no existe informacion en base de datos para el id:" + body.getId());
 		}
-
 	}
 
 	/**
@@ -92,7 +86,7 @@ public class ApiRestImplement implements ApiRestI {
 			}
 			return employeesRepository.save(employeesEntity);
 		} catch (Exception e) {
-			logger.error("Error registrando informacion {}",e.getMessage());
+			logger.error("Error registrando informacion {}", e.getMessage());
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ERROR);
 		}
 	}
@@ -109,7 +103,7 @@ public class ApiRestImplement implements ApiRestI {
 			logger.info("Registro eliminado con id {}", body.getId());
 			return "Registro eliminado con id:" + body.getId();
 		} catch (Exception e) {
-			logger.error("Error eliminando informacion {}",e.getMessage());
+			logger.error("Error eliminando informacion {}", e.getMessage());
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ERROR);
 		}
 	}

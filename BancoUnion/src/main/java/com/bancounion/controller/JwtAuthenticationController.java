@@ -47,9 +47,9 @@ public class JwtAuthenticationController {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-			throw new DisabledException("user deactivated", e);
+			throw new DisabledException("usuario inactivo", e);
 		} catch (BadCredentialsException e) {
-			throw new BadCredentialsException("invalid user", e);
+			throw new BadCredentialsException("usuario invalido", e);
 		}
 	}
 }
